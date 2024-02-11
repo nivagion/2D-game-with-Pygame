@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34525.116
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "2d game", "2d game\2d game.pyproj", "{532EFCC1-EE13-4E6E-81C5-05C3CDBEC821}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{532EFCC1-EE13-4E6E-81C5-05C3CDBEC821}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{532EFCC1-EE13-4E6E-81C5-05C3CDBEC821}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D35FA549-F74E-4C51-A981-737CAE3713B5}
+	EndGlobalSection
+EndGlobal
