@@ -1,15 +1,20 @@
+from turtle import distance
 import pygame
 
 pygame.init()
 
 WIDTH, HEIGHT = 900, 600
-BORDER_THICKNESS = 30
 PLAYER_SIZE = 30
+BORDER_THICKNESS = PLAYER_SIZE
 PLAYER_SPEED = 200 #in pixels per seconds because of delta time
+
 GRID_COLOR = (200, 200, 200) #light grey color
 HIGHLIGHT_COLOR = (200, 230, 200) # v
 BACKGROUND_COLOR = (255, 255, 255)
 BORDER_COLOR = (0, 0, 0)
+POINTER_COLOR = (50, 100, 255)
+
+
 
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("The game")
@@ -27,17 +32,22 @@ for _ in range (WIDTH // PLAYER_SIZE):
 
 running = True
 while running:
-    
+    #important so i put it here
+    mouse_pos = pygame.mouse.get_pos()
+    player_center = (player.x + PLAYER_SIZE // 2, player.y + PLAYER_SIZE // 2)
+    change_grid_color = False
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
         elif event.type == pygame.MOUSEBUTTONDOWN:
-            mouse_pos = pygame.mouse.get_pos()
-            gridX, gridY = mouse_pos[0] // PLAYER_SIZE, mouse_pos[1] // PLAYER_SIZE #calc grid coords
-            if grid_colors[gridX][gridY] != HIGHLIGHT_COLOR:
-                grid_colors[gridX][gridY] = HIGHLIGHT_COLOR
-            else: 
-                grid_colors[gridX][gridY] = BACKGROUND_COLOR
+            if event.button == 1: #only for LMB
+                gridX, gridY = mouse_pos[0] // PLAYER_SIZE, mouse_pos[1] // PLAYER_SIZE #calc grid coords
+                if change_grid_color:
+                    if grid_colors[gridX][gridY] != HIGHLIGHT_COLOR:
+                        grid_colors[gridX][gridY] = HIGHLIGHT_COLOR
+                    else: 
+                        grid_colors[gridX][gridY] = BACKGROUND_COLOR
             
         
     dt = clock.tick(60) / 1000 #limits it to 60fps, returns ms so i divide it by 1000 to return seconds
@@ -81,6 +91,18 @@ while running:
     #draw player
     pygame.draw.rect(window, (255, 0, 0), player)
     
+
+    #draw line pointer
+    dx, dy = mouse_pos[0] - player_center[0], mouse_pos[1] - player_center[1]#direction vector
+    distance = (dx**2 + dy**2)**0.5
+    if distance !=0: #yeah it crashed lol
+        dx /= distance #setting vector lenghts to 1
+        dy /= distance
+    start_pos = (player_center[0] + dx * PLAYER_SIZE // 2.2, player_center[1] + dy * PLAYER_SIZE // 2.2)
+    end_pos = (start_pos[0] + dx * PLAYER_SIZE * 1.2, start_pos[1] + dy * PLAYER_SIZE * 1.2)
+    pygame.draw.line(window, POINTER_COLOR, start_pos, end_pos, PLAYER_SIZE // 10)
+    
+
     pygame.display.update()
 
 
